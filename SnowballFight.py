@@ -8,7 +8,8 @@
 
 import random
 import time
-
+from colorama import init, Fore, Back, Style
+init(autoreset=True)
 
 def printIntro():
     '''
@@ -114,15 +115,29 @@ def playSnowballFight(players):
         victim = getVictim(players, thrower)
         hitResult = getHitResult()
 
+        survives1 = Fore.RED + thrower + " throws at " + victim + " and hits, but " + victim + " survives!X1" + Style.RESET_ALL
+        survives2 = Fore.RED + thrower + " slings " + victim + " and kills, but " + victim + " is now knocked. BeBlooBoopX2" + Style.RESET_ALL
+        survivemessage = [survives1, survives2]
+
+        kill1 = thrower + " throws and absolutely destroys " + victim + " - " + victim + " is out of the game!!!"
+        kill2 = thrower + " throws and gives " + victim + " a BooBoo - " + victim + " went back to the lobby!!!"
+        killmess = [kill1,kill2]
+
+        miss1 = thrower + " tosses a stone at " + victim + " but has really bad aim and hits a window."
+        miss2 = thrower + " throws at " + victim + " but has really bad aim and misses."
+        missmess = [miss1, miss2]
+
+
         if (hitResult == True):
             koResult = random.randint(1, 2)     # 1 = not KO, 2 = KO
             if (koResult == 1):
-                print(thrower + " throws at " + victim + " and hits, but " + victim + " survives!")
+                print (random.choice(survivemessage))
+            
             else:
-                print(thrower + " throws and absolutely destroys " + victim + " - " + victim + " is out of the game!!!")
+                print (random.choice(killmess))
                 players.remove(victim)
         else:
-            print(thrower + " throws at " + victim + " but has really bad aim and misses.")
+            print (random.choice(missmess))
         time.sleep(3)
     
 def printOutro(winner):
